@@ -1,0 +1,149 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Student {
+
+    String name;
+    String grade;
+    int id;
+    int year;
+
+    static ArrayList<Student> students = new ArrayList<>();
+
+    // Constructor
+    Student(String name, String grade, int id, int year) {
+        this.name = name;
+        this.grade = grade;
+        this.id = id;
+        this.year = year;
+    }
+
+    // Display method
+    void display() {
+        System.out.println("Name: " + name + " | ID: " + id + " | Year: " + year + " | Grade: " + grade);
+    }
+
+    // ================= METHODS =================
+
+    // Add Student
+    static void addStudent(Scanner input) {
+        System.out.print("Enter name: ");
+        String name = input.next();
+
+        System.out.print("Enter ID: ");
+        int id = input.nextInt();
+
+        System.out.print("Enter grade: ");
+        String grade = input.next();
+
+        System.out.print("Enter year: ");
+        int year = input.nextInt();
+
+        students.add(new Student(name, grade, id, year));
+        System.out.println("✅ Student added!");
+    }
+
+    // Display All Students
+    static void displayStudents() {
+        if (students.isEmpty()) {
+            System.out.println("No students available.");
+            return;
+        }
+
+        for (Student s : students) {
+            s.display();
+        }
+    }
+
+    // Search Student
+    static void searchStudent(Scanner input) {
+        System.out.print("Enter ID to search: ");
+        int searchId = input.nextInt();
+
+        boolean found = false;
+
+        for (Student s : students) {
+            if (s.id == searchId) {
+                s.display();
+                found = true;
+            }
+        }
+
+        if (!found) {
+            System.out.println("❌ Student not found");
+        }
+    }
+
+    // Update Student Grade
+    static void updateStudent(Scanner input) {
+        System.out.print("Enter ID to update: ");
+        int updateId = input.nextInt();
+
+        System.out.print("Enter new grade: ");
+        String newGrade = input.next();
+
+        boolean updated = false;
+
+        for (Student s : students) {
+            if (s.id == updateId) {
+                s.grade = newGrade;
+                updated = true;
+            }
+        }
+
+        if (updated) {
+            System.out.println("✅ Grade updated!");
+        } else {
+            System.out.println("❌ Student not found");
+        }
+    }
+
+    // ================= MAIN =================
+
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+
+        // Sample data
+        students.add(new Student("Sami", "A", 102, 1));
+        students.add(new Student("Sam", "B", 103, 2));
+        students.add(new Student("Samu", "C", 142, 4));
+        students.add(new Student("Sama", "B", 1072, 6));
+
+        while (true) {
+            System.out.println("\n===== STUDENT MANAGEMENT SYSTEM =====");
+            System.out.println("1. Add Student");
+            System.out.println("2. Display All Students");
+            System.out.println("3. Search by ID");
+            System.out.println("4. Update Grade");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+
+            int choice = input.nextInt();
+
+            switch (choice) {
+                case 1:
+                    addStudent(input);
+                    break;
+
+                case 2:
+                    displayStudents();
+                    break;
+
+                case 3:
+                    searchStudent(input);
+                    break;
+
+                case 4:
+                    updateStudent(input);
+                    break;
+
+                case 5:
+                    System.out.println("👋 Thanks for using the system!");
+                    System.exit(0);
+
+                default:
+                    System.out.println("⚠ Invalid choice. Try again.");
+            }
+        }
+    }
+}
