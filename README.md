@@ -6,5 +6,5 @@ Users can:
 Add new students
 Display all students
 Search students by ID
-Update a student’s grade
+Update a student’s grades
 Exit the system
